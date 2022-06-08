@@ -58,7 +58,7 @@ export default {
             number: newNumber,
             title: t.name,
             level: level,
-            display: `${"  ".repeat(level - 1)}${t.name}`,
+            display: level == 1 ? t.name : `${"  ".repeat(level - 2)}${t.name}`,
             active: t.active,
             minutes: t.minutes,
             scoreCount: 0,
@@ -77,36 +77,39 @@ export default {
           topics: [
             {
               name: "Recap from last week",
+              active: true,
               topics: [
                 {
                   ref: "jira-01",
-                  name: "Subject A",
+                  name: "Sally presented the new features",
                   topics: [
                     {
-                      name: "XXX",
+                      name: "Button color changes",
                     },
                     {
-                      name: "YYY",
+                      name: "Save button",
                     },
                   ],
                 },
                 {
                   ref: "jira-02",
-                  name: "Subject B",
+                  name: "Agreed to use green over blue for background colors",
                 },
               ],
               minutes: 10,
             },
             {
-              name: "Agree approach for XYZ",
-              minutes: 20,
-              active: true,
+              name: "Agree approach for database migration",
+              minutes: 30,
               topics: [
                 {
-                  name: "AAA",
+                  name: "Big bang approach: Pros & cons",
                 },
                 {
-                  name: "BBB",
+                  name: "Incremental change: Pros & Cons",
+                },
+                {
+                  name: "Propose big bang or incremental"
                 },
               ],
             },
@@ -159,7 +162,8 @@ export default {
           "
           @click="setActive(item.number)"
         >
-          {{ item.display }}
+        <span v-if="item.level == 1">{{ item.title }}</span>
+        <span v-else>{{ `${'  '.repeat(item.level - 2)}- ${item.title}` }}</span>
         </td>
         <td v-if="item.level == 1"
          @click="updateItemScore(item,0)"
