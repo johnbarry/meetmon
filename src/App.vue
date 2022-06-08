@@ -61,6 +61,7 @@ export default {
             display: level == 1 ? t.name : `${"  ".repeat(level - 2)}${t.name}`,
             active: t.active,
             minutes: t.minutes,
+	    notes: t.notes,
             scoreCount: 0,
             scoreTotal: 0
           };
@@ -85,6 +86,10 @@ export default {
                   topics: [
                     {
                       name: "Button color changes",
+		      notes: [
+		      	"Harry said it was super cool",
+			"Nadia wasn't so impressed"
+		      ]
                     },
                     {
                       name: "Save button",
@@ -104,12 +109,27 @@ export default {
               topics: [
                 {
                   name: "Big bang approach: Pros & cons",
+		  notes: [
+		    "Pro: Simple to implement",
+		    "Con: High release failure risk",
+		  ]
                 },
                 {
                   name: "Incremental change: Pros & Cons",
+		  notes: [
+		    "Con: Need feature switch for new/old database approach",
+		    "Con: Twice as many test cases",
+		    "Pro: Easier to revert",
+		    "Pro: Less likely to get fired"
+		  ]
                 },
                 {
-                  name: "Propose big bang or incremental"
+                  name: "Propose big bang or incremental",
+		  notes: [
+		    "Decided on incremental approach",
+		    "Joe to produce plan for next week's meeting",
+		    "Getting fired is bad"
+		  ]
                 },
               ],
             },
@@ -130,6 +150,15 @@ export default {
       
   </h1>
   <table>
+  <thead>
+  	<tr>
+		<th>Item</th>
+		<th>Time</th>
+		<th>Subject</th>
+		<th>Minutes</th>
+		<th colspan="5">Score</th>
+	</tr>
+  </thead>
     <tbody>
       <tr v-for="item in agendaItems" :key="item.number" :ref="`agenda:${item.number}`">
         <td
@@ -165,30 +194,50 @@ export default {
         <span v-if="item.level == 1">{{ item.title }}</span>
         <span v-else>{{ `${'  '.repeat(item.level - 2)}- ${item.title}` }}</span>
         </td>
+
+        <td
+          v-bind:style="
+            maybeHighlight(
+              item,
+              { 'font-size': 'small' } 
+            )
+          "
+          @click="setActive(item.number)"
+        >
+	<ol>
+	<li v-for="n in item.notes">{{ n }} </li>
+	</ol></td>
+
         <td v-if="item.level == 1"
+          v-bind:style=" maybeHighlight( item, {}) "
          @click="updateItemScore(item,0)"
         >
           <button style="background-color: red">0</button>
         </td>
         <td 
           v-if="item.level == 1"
-         @click="updateItemScore(item,1)"
+          v-bind:style=" maybeHighlight( item, {}) "
+          @click="updateItemScore(item,1)"
           >
           <button style="background-color: orange">S</button>
         </td>
         <td 
           v-if="item.level == 1"
+          v-bind:style=" maybeHighlight( item, {}) "
          @click="updateItemScore(item,2)"
           >
           <button style="background-color: lightgreen">M</button>
         </td>
         <td 
           v-if="item.level == 1"
-         @click="updateItemScore(item,4)"
+          v-bind:style=" maybeHighlight( item, {}) "
+          @click="updateItemScore(item,4)"
           >
           <button style="background-color: green">L</button>
         </td>
-        <td v-if="item.level == 1 && item.scoreCount > 0">
+        <td 
+	  v-if="item.level == 1 && item.scoreCount > 0"
+          v-bind:style=" maybeHighlight( item, {}) ">
         <span style="font-size: small"> x{{item.scoreCount}}
         </span> = 
           <button v-bind:style="itemScoreStyle(item)">
@@ -215,6 +264,14 @@ td {
   text-align: left;
   border-spacing: 100px;
 }
+th {
+  color: black;
+  font-family: "Courier New", Courier, monospace;
+  font-size: normal;
+  border-spacing: 100px;
+  background-color: lightgrey;
+  text-decoration: underline;
+}
 button {
   color: black;
   font-family: "Courier New", Courier, monospace;
@@ -222,5 +279,10 @@ button {
   white-space: pre;
   text-align: left;
   border-radius: 50%;
+}
+ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: blue;
 }
 </style>
