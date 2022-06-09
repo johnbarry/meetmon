@@ -14,7 +14,7 @@ export default {
   <div class="container">
     <div>
       <div class="score-circle">
-        {{score}}/100<span>Rank: {{rank}}</span>
+        {{score}}
       </div>
     </div>
     <div class="tips">
@@ -40,7 +40,7 @@ export default {
   font-size: 2rem;
   border-radius: 50%;
   background-color: orange;
-  padding: 3.5rem 2rem;
+  padding: 3.5rem 3rem;
   width: fit-content;
   text-align: center;
 }

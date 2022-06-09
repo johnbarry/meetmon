@@ -84,7 +84,7 @@ export default {
           <th>Rank</th>
           <th>Name</th>
           <th>Meeting Score</th>
-          <th>Votes</th>
+          <!-- <th>Votes</th> -->
         </tr>
       </thead>
       <tbody>
@@ -97,7 +97,7 @@ export default {
             <span v-if="item.rank === 3">🥉</span>
           </td>
           <td class="cell-score">{{ item.score }}</td>
-          <td>{{ item.voteCount }}</td>
+          <!-- <td>{{ item.voteCount }}</td> -->
         </tr>
       </tbody>
     </table>
