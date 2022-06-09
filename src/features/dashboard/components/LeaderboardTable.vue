@@ -68,7 +68,7 @@ export default {
 
 <template>
   <div class="container">
-    <h1>Leaderboard</h1>
+    <h2>Leaderboard</h2>
     <div class="filter">
       <div>
         <label>Start date: </label>
