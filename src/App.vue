@@ -195,7 +195,7 @@ export default {
 
 <template>
   <LeaderboardTable></LeaderboardTable>
- <h1>
+<!-- <h1>
     {{ meetings[1].title }} ({{ meetings[1].time.toLocaleString() }})
     <button v-bind:style="`background-color: ${averageMeetingColor(agendaItems)}`">
       score
@@ -297,7 +297,7 @@ export default {
         </td>
       </tr>
     </tbody>
-  </table>
+  </table>-->
 </template>
 
 <style>
