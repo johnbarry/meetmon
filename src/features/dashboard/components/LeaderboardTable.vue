@@ -109,7 +109,7 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 600px;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .filter {
