@@ -2,17 +2,8 @@
 export default {
   data() {
     return {
-      user: 'john.doe@company.com',
-      search: '',
-      ranks: [
-        {
-          rank: 1,
-          name: 'Giacomo Guilizzoni',
-          email: 'giacomo.guilizzoni@company.com',
-          voteCount: 113,
-          score: 95.5
-        }
-      ]
+      score: 55.6,
+      rank: 521
     }
   }
 }
@@ -23,7 +14,7 @@ export default {
   <div class="container">
     <div>
       <div class="score-circle">
-        55.6<span>Rank: 421</span>
+        {{score}}<span>Rank: {{rank}}</span>
       </div>
     </div>
     <div class="tips">

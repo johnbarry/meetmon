@@ -1,11 +1,13 @@
 <script>
 import LeaderboardTable from '../components/LeaderboardTable.vue';
 import PersonalScore from '../components/PersonalScore.vue';
+import RatingChart from '../components/RatingChart.vue';
 
 export default {
   components: {
     LeaderboardTable,
-    PersonalScore
+    PersonalScore,
+    RatingChart
   }
 };
 </script>
@@ -14,4 +16,5 @@ export default {
   <h1>Meeting Rating</h1>
   <LeaderboardTable></LeaderboardTable>
   <PersonalScore></PersonalScore>
+  <RatingChart></RatingChart>
 </template>
