@@ -7,9 +7,14 @@ export default {
       if (item.active) style["background-color"] = "yellow";
       return style;
     },
+    changeRole: function (newRole) {
+      this.currentRole = newRole;
+    },
     setActive: function (number) {
-      for (const item of this.agendaItems) {
-        item.active = item.number == number;
+      if (this.currentRole == 'chair') {
+        for (const item of this.agendaItems) {
+          item.active = item.number == number;
+        }
       }
     },
     updateItemScore: function (item, score) {
@@ -17,9 +22,9 @@ export default {
       item.scoreTotal += score;
     },
     averageScoreSize: function (avg) {
-      if (avg > 3) return "L";
+      if (avg > 3) return "H";
       if (avg >= 1.5) return "M";
-      if (avg >= 1) return "S";
+      if (avg >= 1) return "L";
       return "0";
     },
     averageItemScore: function (item) {
@@ -27,9 +32,9 @@ export default {
     },
     sizeToColorMap: function () {
       return {
-        L: "green",
+        H: "green",
         M: "lightgreen",
-        S: "orange",
+        L: "orange",
         0: "red",
         "": "lightgrey",
       };
@@ -80,11 +85,12 @@ export default {
     }
     let urlParams = new URLSearchParams(window.location.search);
     let raw = {
+      currentRole: "chair", // chair, participant, scribe
       defaultMeeting: urlParams.has("id") ? urlParams.get("id") : 1,
       meetings: {
         2: {
           id: 2,
-          time: new Date(),
+          time: new Date("2022-06-09T11:00:00"),
           title: "Kickoff",
           topics: [
             {
@@ -184,7 +190,9 @@ export default {
       },
     };
     raw.agendaItems = Array.from(items(raw.meetings[raw.defaultMeeting].topics));
-  raw.justLevelOne = raw.agendaItems.reduce( (levelOneSoFar, item) => levelOneSoFar && item.level == 1 )
+    raw.justLevelOne = raw.agendaItems.reduce(
+      (levelOneSoFar, item) => levelOneSoFar && item.level == 1
+    );
     return raw;
   },
   components: {
@@ -196,9 +204,14 @@ export default {
 <template>
   <Dashboard></Dashboard>
   <h1>
-    {{ meetings[1].title }} ({{ meetings[1].time.toLocaleString() }})
-    <button v-bind:style="`background-color: ${averageMeetingColor(agendaItems)}`">
-      score
+    {{ meetings[defaultMeeting].title }} ({{
+      meetings[defaultMeeting].time.toLocaleString()
+    }})
+    <button 
+      v-bind:style="`background-color: ${averageMeetingColor(agendaItems)}`"
+      v-if="currentRole == 'participant'"
+    >
+      rating
     </button>
   </h1>
   <table>
@@ -208,7 +221,7 @@ export default {
         <th>Time</th>
         <th>Subject</th>
         <th>Minutes</th>
-        <th colspan="5">Score</th>
+        <th v-if="currentRole == 'participant'" colspan="5">Rating</th>
       </tr>
     </thead>
     <tbody>
@@ -256,38 +269,39 @@ export default {
           <ol>
             <li v-for="n in item.notes">{{ n }}</li>
           </ol>
+
         </td>
 
         <td
-          v-if="item.level == 1"
+          v-if="item.level == 1 && currentRole == 'participant'"
           v-bind:style="maybeHighlight(item, {})"
           @click="updateItemScore(item, 0)"
         >
           <button style="background-color: red">0</button>
         </td>
         <td
-          v-if="item.level == 1"
+          v-if="item.level == 1 && currentRole == 'participant'"
           v-bind:style="maybeHighlight(item, {})"
           @click="updateItemScore(item, 1)"
         >
           <button style="background-color: orange">S</button>
         </td>
         <td
-          v-if="item.level == 1"
+          v-if="item.level == 1 && currentRole == 'participant'"
           v-bind:style="maybeHighlight(item, {})"
           @click="updateItemScore(item, 2)"
         >
           <button style="background-color: lightgreen">M</button>
         </td>
         <td
-          v-if="item.level == 1"
+          v-if="item.level == 1 && currentRole == 'participant'"
           v-bind:style="maybeHighlight(item, {})"
           @click="updateItemScore(item, 4)"
         >
           <button style="background-color: green">L</button>
         </td>
         <td
-          v-if="item.level == 1 && item.scoreCount > 0"
+          v-if="item.level == 1 && item.scoreCount > 0 && currentRole == 'participant'"
           v-bind:style="maybeHighlight(item, {})"
         >
           <span style="font-size: small"> x{{ item.scoreCount }} </span> =
@@ -298,6 +312,15 @@ export default {
       </tr>
     </tbody>
   </table>
+  <span>
+    <p/>
+    <p/>
+
+    <input type="radio" id="chair" value="chair" v-model="currentRole" />
+    <label for="chair">Chairperson</label>
+    <input type="radio" id="participant" value="participant" v-model="currentRole" />
+    <label for="participant">Participant</label>
+  </span>
 </template>
 
 <style>
@@ -341,3 +364,32 @@ ol {
   color: blue;
 }
 </style>
+
+<!--template>
+  <div id="app">
+    <RankingChart/>
+  </div>
+</template>
+
+<script>
+import RankingChart from './components/RankingChart.vue'
+
+export default {
+  name: 'App',
+  components: {
+    RankingChart
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style-->
+
