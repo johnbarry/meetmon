@@ -212,8 +212,8 @@ export default {
     <thead>
       <tr>
         <th>Item</th>
-        <th>Time</th>
-        <th>Subject</th>
+        <th>Duration</th>
+        <th>Agenda item</th>
         <th>Minutes</th>
         <th v-if="currentRole == 'participant'" colspan="5">Rating</th>
       </tr>
