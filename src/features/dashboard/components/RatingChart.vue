@@ -1,12 +1,6 @@
-<template>
-  <div>
-    <canvas id="ranking-chart"></canvas>
-  </div>
-</template>
-
 <script>
 import Chart from 'chart.js'
-import rankingChartData from '../ranking-data.js'
+import rankingChartData from '../data/ranking-data';
 
 export default {
   name: 'RankingChart',
@@ -21,3 +15,17 @@ export default {
   }
 }
 </script>
+
+<template>
+  <h2>Your Rating over Time</h2>
+  <div class="container">
+    <canvas id="ranking-chart"></canvas>
+  </div>
+</template>
+
+
+<style scoped>
+.container {
+  max-width: 600px;
+}
+</style>
