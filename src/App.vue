@@ -95,6 +95,18 @@ export default {
 			"simple, ordered list",
 			"averages not single meeting"
 	     	]
+	     },
+	   	{
+	     	name: "Teams integration - Syed, Daniel",
+		minutes: 5,
+	     	notes: [ "ON HOLD" ]
+	     },
+	   	{
+	     	name: "Objective",
+		minutes: 1,
+	     	notes: [
+			"Provide chair rating to enable participants to choose effective meetings and a means for chairs to improve"
+			]
 	     }
 	   ]
 	},
