@@ -1,4 +1,6 @@
 <script>
+import LeaderboardTable from './features/dashboard/components/LeaderboardTable.vue';
+
 export default {
   methods: {
     maybeHighlight: function (item, style) {
@@ -41,10 +43,10 @@ export default {
           !item.minutes || item.scoreCount == 0
             ? totals
             : [
-                totals[0] + 1, // number of items
-                (totals[1] += item.minutes), // total minutes
-                (totals[2] += (item.scoreTotal * item.minutes) / item.scoreCount),
-              ],
+              totals[0] + 1, // number of items
+              (totals[1] += item.minutes), // total minutes
+              (totals[2] += (item.scoreTotal * item.minutes) / item.scoreCount),
+            ],
         [0, 0, 0.0]
       );
       console.log(
@@ -182,14 +184,18 @@ export default {
       },
     };
     raw.agendaItems = Array.from(items(raw.meetings[raw.defaultMeeting].topics));
-    raw.justLevelOne = raw.agendaItems.reduce( (levelOneSoFar, item) => levelOneSoFar && item.level == 1 )
+  raw.justLevelOne = raw.agendaItems.reduce( (levelOneSoFar, item) => levelOneSoFar && item.level == 1 )
     return raw;
   },
+  components: {
+    LeaderboardTable
+  }
 };
 </script>
 
 <template>
-  <h1>
+  <LeaderboardTable></LeaderboardTable>
+ <h1>
     {{ meetings[1].title }} ({{ meetings[1].time.toLocaleString() }})
     <button v-bind:style="`background-color: ${averageMeetingColor(agendaItems)}`">
       score
