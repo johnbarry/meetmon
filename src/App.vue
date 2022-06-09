@@ -58,7 +58,6 @@ export default {
             number: newNumber,
             title: t.name,
             level: level,
-            display: level == 1 ? t.name : `${"  ".repeat(level - 2)}${t.name}`,
             active: t.active,
             minutes: t.minutes,
 	    notes: t.notes,
@@ -69,8 +68,36 @@ export default {
         if (t.topics) yield* items(t.topics, level + 1, newNumber);
       }
     }
+    let urlParams = new URLSearchParams(window.location.search);
     let raw = {
+      defaultMeeting: urlParams.has('id') ?  urlParams.get('id') : 1,
       meetings: {
+        2: {
+	   id: 2,
+	   time: new Date(),
+	   title: "Kickoff",
+	   topics: [
+	   	{
+	     	name: "Change current meeting page - John, Anil, Syed",
+		minutes: 5,
+	     	notes: [
+			"stepping thru agenda",
+			"entering meeting minutes",
+			"algo discussion"
+	     	]
+	     },
+	   	{
+	     	name: "Design/implmenent ratings page - Daniel, Gaurav, Naveen",
+             	active: true,
+		minutes: 5,
+	     	notes: [
+			"focus on UI, wireframes",
+			"simple, ordered list",
+			"averages not single meeting"
+	     	]
+	     }
+	   ]
+	},
         1: {
           id: 1,
           time: new Date(),
@@ -137,8 +164,8 @@ export default {
         },
       },
     };
-    raw.agendaItems = Array.from(items(raw.meetings[1].topics));
-    return raw;
+    raw.agendaItems = Array.from(items(raw.meetings[raw.defaultMeeting].topics))
+    return raw
   },
 };
 </script>
