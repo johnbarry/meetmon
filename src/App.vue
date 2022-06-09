@@ -1,6 +1,4 @@
 <script>
-import Dashboard from './features/dashboard/views/Dashboard.vue';
-
 export default {
   methods: {
     maybeHighlight: function (item, style) {
@@ -194,15 +192,11 @@ export default {
       (levelOneSoFar, item) => levelOneSoFar && item.level == 1
     );
     return raw;
-  },
-  components: {
-    Dashboard
   }
 };
 </script>
 
 <template>
-  <Dashboard></Dashboard>
   <h1>
     {{ meetings[defaultMeeting].title }} ({{
       meetings[defaultMeeting].time.toLocaleString()
