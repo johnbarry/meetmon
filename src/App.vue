@@ -1,5 +1,5 @@
 <script>
-import LeaderboardTable from './features/dashboard/components/LeaderboardTable.vue';
+import Dashboard from './features/dashboard/views/Dashboard.vue';
 
 export default {
   methods: {
@@ -188,14 +188,14 @@ export default {
     return raw;
   },
   components: {
-    LeaderboardTable
+    Dashboard
   }
 };
 </script>
 
 <template>
-  <LeaderboardTable></LeaderboardTable>
-<!-- <h1>
+  <Dashboard></Dashboard>
+  <h1>
     {{ meetings[1].title }} ({{ meetings[1].time.toLocaleString() }})
     <button v-bind:style="`background-color: ${averageMeetingColor(agendaItems)}`">
       score
@@ -297,11 +297,16 @@ export default {
         </td>
       </tr>
     </tbody>
-  </table>-->
+  </table>
 </template>
 
 <style>
 h1 {
+  color: blue;
+  font-family: "Courier New", Courier, monospace;
+  font-size: larger;
+}
+h2 {
   color: blue;
   font-family: "Courier New", Courier, monospace;
   font-size: large;
