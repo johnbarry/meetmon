@@ -15,7 +15,3 @@ export default {
   <LeaderboardTable></LeaderboardTable>
   <PersonalScore></PersonalScore>
 </template>
-
-<style scoped>
-
-</style>

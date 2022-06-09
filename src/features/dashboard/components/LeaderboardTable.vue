@@ -67,8 +67,8 @@ export default {
 </script>
 
 <template>
+  <h2>Leaderboard</h2>
   <div class="container">
-    <h2>Leaderboard</h2>
     <div class="filter">
       <div>
         <label>Start date: </label>
@@ -109,6 +109,7 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 600px;
+  margin-bottom: 2rem;
 }
 
 .filter {
