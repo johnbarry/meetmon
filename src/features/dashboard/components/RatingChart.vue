@@ -17,7 +17,7 @@ export default {
 </script>
 
 <template>
-  <h2>Your Rating over Time</h2>
+  <h2>Your Rating Trend</h2>
   <div class="container">
     <canvas id="ranking-chart"></canvas>
   </div>
